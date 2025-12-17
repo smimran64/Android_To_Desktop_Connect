@@ -1,5 +1,6 @@
 package com.example.desktopdatareceiver.network;
 
+import com.example.desktopdatareceiver.controller.ConnectionController;
 import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 
@@ -10,71 +11,74 @@ import java.net.Socket;
 
 public class NetworkController {
 
-    private TextArea logArea;
-    private ServerSocket serverSocket;
+    private final TextArea logArea;
+    private final ConnectionController ui;
 
-    public NetworkController(TextArea logArea) {
+    private ServerSocket serverSocket;
+    private boolean running = false;
+
+    public NetworkController(TextArea logArea, ConnectionController ui) {
         this.logArea = logArea;
+        this.ui = ui;
     }
 
     public void startServer(int port) {
-
-        //confirm method entered
-
-        log("➡ startServer() called");
+        running = true;
 
         new Thread(() -> {
             try {
-                log("➡ Trying to bind port " + port);
-
                 serverSocket = new ServerSocket(port);
+                log("Server listening on port " + port);
 
-                log("✅ Server listening on port " + port);
-
-                while (true) {
+                while (running) {
                     Socket client = serverSocket.accept();
-                    log("✅ Client connected");
+                    log("Client connected");
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(client.getInputStream())
                     );
 
-                    String data;
-                    while ((data = in.readLine()) != null) {
-                        log("✅ Received: " + data);
+                    String data = in.readLine();
+                    if (data != null && !data.isBlank()) {
+                        log("Received: " + data);
                         saveToDB(data);
+                        ui.onMessageReceived();
                     }
 
                     client.close();
                 }
 
             } catch (Exception e) {
-                e.printStackTrace(); //VERY IMPORTANT
-                log("❌ Server error: " + e.toString());
+                log("Server error: " + e.getMessage());
             }
         }).start();
     }
 
+    public void stopServer() {
+        try {
+            running = false;
+            if (serverSocket != null) serverSocket.close();
+            log("Server stopped");
+        } catch (Exception e) {
+            log("Stop error: " + e.getMessage());
+        }
+    }
+
+    private void saveToDB(String data) {
+        try (var conn = database.DBConnection.getConnection()) {
+            var ps = conn.prepareStatement(
+                    "INSERT INTO received_data (data) VALUES (?)");
+            ps.setString(1, data);
+            ps.executeUpdate();
+            log(" Saved to DB");
+        } catch (Exception e) {
+            log("DB error: " + e.getMessage());
+        }
+    }
 
     private void log(String msg) {
         Platform.runLater(() ->
                 logArea.appendText(msg + "\n")
         );
     }
-
-    private void saveToDB(String data) {
-        try (var conn = database.DBConnection.getConnection()) {
-
-            var sql = "INSERT INTO received_data (data) VALUES (?)";
-            var ps = conn.prepareStatement(sql);
-            ps.setString(1, data);
-            ps.executeUpdate();
-
-            log("💾 Saved to DB");
-
-        } catch (Exception e) {
-            log("❌ DB error: " + e.getMessage());
-        }
-    }
-
 }

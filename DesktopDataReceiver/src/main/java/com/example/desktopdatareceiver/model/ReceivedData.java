@@ -1,13 +1,20 @@
+
+
+
+
+
 package com.example.desktopdatareceiver.model;
 
 public class ReceivedData {
 
-    private int id;
-    private String data;
+    private final int id;
+    private final String data;
+    private final String receivedAt;
 
-    public ReceivedData(int id, String data) {
+    public ReceivedData(int id, String data, String receivedAt) {
         this.id = id;
         this.data = data;
+        this.receivedAt = receivedAt;
     }
 
     public int getId() {
@@ -16,5 +23,9 @@ public class ReceivedData {
 
     public String getData() {
         return data;
+    }
+
+    public String getReceivedAt() {
+        return receivedAt;
     }
 }

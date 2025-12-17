@@ -8,11 +8,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.OutputStream;
-import java.net.Inet4Address;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.Socket;
-import java.util.Enumeration;
+
 
 public class MainActivityJava extends Activity {
 
@@ -39,7 +36,8 @@ public class MainActivityJava extends Activity {
 
         portField.setText("3005");
 
-        // 🔥 HERE is the answer
+                  // HERE IS THE ANSWER
+
         sendButton.setOnClickListener(v -> sendMessage());
     }
 
@@ -52,11 +50,11 @@ public class MainActivityJava extends Activity {
         final String message = messageField.getText().toString().trim();
 
         if (message.isEmpty()) {
-            statusText.setText("❌ Message empty");
+            statusText.setText(" Message empty");
             return;
         }
 
-        statusText.setText("Sending...");
+        statusText.setText(" Message Couldn't sent");
 
         new Thread(() -> {
             try {
@@ -69,12 +67,14 @@ public class MainActivityJava extends Activity {
                 socket.close();
 
                 runOnUiThread(() ->
-                        statusText.setText("✅ Sent: " + message)
+                        statusText.setText("Sent Successfully : " + message)
+
+
                 );
 
             } catch (Exception e) {
                 runOnUiThread(() ->
-                        statusText.setText("❌ Failed: " + e.getMessage())
+                        statusText.setText(" Failed: " + e.getMessage())
                 );
             }
         }).start();
@@ -90,29 +90,7 @@ public class MainActivityJava extends Activity {
     }
 
 
-//    private String getLocalIpAddress() {
-//        try {
-//            Enumeration<NetworkInterface> interfaces =
-//                    NetworkInterface.getNetworkInterfaces();
-//
-//            while (interfaces.hasMoreElements()) {
-//                NetworkInterface ni = interfaces.nextElement();
-//
-//                Enumeration<InetAddress> addresses = ni.getInetAddresses();
-//                while (addresses.hasMoreElements()) {
-//                    InetAddress addr = addresses.nextElement();
-//
-//                    if (!addr.isLoopbackAddress()
-//                            && addr instanceof Inet4Address) {
-//                        return addr.getHostAddress(); // 🔥 real LAN IP
-//                    }
-//                }
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return ""; // ❌ 127.0.0.1 না
-//    }
+
 
 
 
