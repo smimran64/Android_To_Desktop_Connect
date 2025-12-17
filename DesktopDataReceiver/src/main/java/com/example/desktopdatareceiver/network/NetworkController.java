@@ -32,17 +32,19 @@ public class NetworkController {
 
                 while (running) {
                     Socket client = serverSocket.accept();
-                    log("Client connected");
+                    String clientIp = client.getInetAddress().getHostAddress();
+                    log("Client connected: " + clientIp);
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(client.getInputStream())
                     );
 
-                    String data = in.readLine();
-                    if (data != null && !data.isBlank()) {
-                        log("Received: " + data);
-                        saveToDB(data);
-                        ui.onMessageReceived();
+                    String message = in.readLine();
+                    if (message != null && !message.isBlank()) {
+                        log("Received: " + message);
+
+                        // 🔥 DB save + counter update
+                        ui.onMessageReceived(message, clientIp);
                     }
 
                     client.close();
@@ -61,18 +63,6 @@ public class NetworkController {
             log("Server stopped");
         } catch (Exception e) {
             log("Stop error: " + e.getMessage());
-        }
-    }
-
-    private void saveToDB(String data) {
-        try (var conn = database.DBConnection.getConnection()) {
-            var ps = conn.prepareStatement(
-                    "INSERT INTO received_data (data) VALUES (?)");
-            ps.setString(1, data);
-            ps.executeUpdate();
-            log(" Saved to DB");
-        } catch (Exception e) {
-            log("DB error: " + e.getMessage());
         }
     }
 

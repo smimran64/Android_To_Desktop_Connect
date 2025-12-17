@@ -7,25 +7,24 @@ package com.example.desktopdatareceiver.model;
 
 public class ReceivedData {
 
-    private final int id;
-    private final String data;
-    private final String receivedAt;
+    private int id;
+    private String message;
+    private String ipAddress;
+    private String date;
+    private String time;
 
-    public ReceivedData(int id, String data, String receivedAt) {
+    public ReceivedData(int id, String message, String ipAddress, String date, String time) {
         this.id = id;
-        this.data = data;
-        this.receivedAt = receivedAt;
+        this.message = message;
+        this.ipAddress = ipAddress;
+        this.date = date;
+        this.time = time;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public String getReceivedAt() {
-        return receivedAt;
-    }
+    public int getId() { return id; }
+    public String getMessage() { return message; }
+    public String getIpAddress() { return ipAddress; }
+    public String getDate() { return date; }
+    public String getTime() { return time; }
 }
+

@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data Sender Pro"
+            android:text="Data Sender Profile"
             android:textSize="28sp"
             android:fontFamily="sans-serif-black"
             android:textColor="#090909"

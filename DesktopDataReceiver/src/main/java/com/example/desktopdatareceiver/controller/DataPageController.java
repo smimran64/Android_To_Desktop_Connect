@@ -11,25 +11,41 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DataPageController {
 
-    @FXML private TableView<ReceivedData> tableView;
-    @FXML private TableColumn<ReceivedData, Integer> idCol;
-    @FXML private TableColumn<ReceivedData, String> dataCol;
+    @FXML
+    private TableView<ReceivedData> tableView;
+
+    @FXML
+    private TableColumn<ReceivedData, Integer> idCol;
+
+    @FXML
+    private TableColumn<ReceivedData, String> messageCol;
+
+    @FXML
+    private TableColumn<ReceivedData, String> ipCol;
+
+    @FXML
+    private TableColumn<ReceivedData, String> dateCol;
+
+    @FXML
+    private TableColumn<ReceivedData, String> timeCol;
 
     @FXML
     public void initialize() {
 
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
-        dataCol.setCellValueFactory(new PropertyValueFactory<>("data"));
+        messageCol.setCellValueFactory(new PropertyValueFactory<>("message"));
+        ipCol.setCellValueFactory(new PropertyValueFactory<>("ipAddress"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+
 
         loadData();
     }
 
     private void loadData() {
         ObservableList<ReceivedData> data =
-                FXCollections.observableArrayList(
-                        DataRepository.getAllData()
-                );
-
+                FXCollections.observableArrayList(DataRepository.getAllData());
         tableView.setItems(data);
     }
 }

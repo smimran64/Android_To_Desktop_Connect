@@ -12,7 +12,7 @@
     <!-- ================= HEADER ================= -->
     <top>
         <VBox alignment="CENTER" spacing="5" style="-fx-padding: 25;">
-            <Label text="⚡ IGNITE"
+            <Label text="⚡ IGNITE TECHNOLOGY"
                    style="-fx-font-size: 30px;
                           -fx-font-weight: bold;
                           -fx-text-fill: #e94560;"/>

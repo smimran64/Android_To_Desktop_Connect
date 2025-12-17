@@ -1,6 +1,7 @@
 package com.example.desktopdatareceiver.controller;
 
 import com.example.desktopdatareceiver.network.NetworkController;
+import database.DataRepository;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -131,7 +132,10 @@ public class ConnectionController {
 
                    // RECEIVE MASSAGE
 
-    public void onMessageReceived() {
+    public void onMessageReceived(String message, String ipAddress) {
+
+        DataRepository.saveData(message, ipAddress);
+
         Platform.runLater(() -> {
             receivedCount++;
             counterLabel.setText(String.valueOf(receivedCount));
