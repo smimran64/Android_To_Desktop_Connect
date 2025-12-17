@@ -9,7 +9,7 @@
 
     <!-- TOP -->
     <top>
-        <Label text="📥 Received Data"
+        <Label text=" Received Data"
                alignment="CENTER"
                style="-fx-font-size: 18px;
                       -fx-font-weight: bold;

@@ -43,7 +43,7 @@ public class NetworkController {
                     if (message != null && !message.isBlank()) {
                         log("Received: " + message);
 
-                        // 🔥 DB save + counter update
+
                         ui.onMessageReceived(message, clientIp);
                     }
 

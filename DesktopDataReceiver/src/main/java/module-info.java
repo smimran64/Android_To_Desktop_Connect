@@ -4,10 +4,12 @@ module com.example.desktopdatareceiver {
     requires javafx.fxml;
     requires java.sql;
 
-    // FXML controllers
+               // FXML controllers
+
     opens com.example.desktopdatareceiver.controller to javafx.fxml;
 
-    // TableView model reflection
+              // TableView model reflection
+
     opens com.example.desktopdatareceiver.model to javafx.base;
 
 

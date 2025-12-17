@@ -11,7 +11,9 @@ import java.util.List;
 
 public class DataRepository {
 
-    // ✅ 1️⃣ Create table (new design)
+                    // Create table
+
+
     public static void createTable() {
         String sql = "CREATE TABLE IF NOT EXISTS received_data (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -26,14 +28,16 @@ public class DataRepository {
              Statement stmt = conn.createStatement()) {
 
             stmt.execute(sql);
-            System.out.println("Table ready with new columns.");
+            System.out.println("Table ready.");
 
         } catch (Exception e) {
             System.out.println("Table creation failed: " + e.getMessage());
         }
     }
 
-    // ✅ 2️⃣ Save data from Android
+                   //Save data from Android
+
+
     public static void saveData(String message, String ipAddress) {
 
         String sql = "INSERT INTO received_data (message, ip_address, date, time) " +
@@ -53,7 +57,9 @@ public class DataRepository {
         }
     }
 
-    // ✅ 3️⃣ Fetch all data for TableView
+                   //  Fetch all data for TableView
+
+
     public static List<ReceivedData> getAllData() {
         List<ReceivedData> list = new ArrayList<>();
 
