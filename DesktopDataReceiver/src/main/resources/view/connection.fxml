@@ -116,7 +116,7 @@
                               -fx-font-weight: bold;"/>
 
                 <Button fx:id="startServerBtn"
-                        text="Start Server"
+                        text="Connect Server"
                         maxWidth="Infinity"
                         style="-fx-background-color: #e94560;
                                -fx-text-fill: white;

@@ -52,7 +52,7 @@ public class ConnectionController {
 
         counterLabel.setText("0");
         connectDbBtn.setText("Connect Database");
-        startServerBtn.setText("Start Server");
+        startServerBtn.setText("Connect Server");
 
         connectDbBtn.setOnAction(e -> toggleDatabase());
         startServerBtn.setOnAction(e -> toggleServer());
@@ -110,7 +110,7 @@ public class ConnectionController {
 
             serverRunning = true;
             updateServerStatus(true);
-            startServerBtn.setText("Stop Server");
+            startServerBtn.setText("Disconnect Server");
 
             showAlert("Server Started",
                     "Server running on port " + port + " ",
@@ -121,7 +121,7 @@ public class ConnectionController {
 
             serverRunning = false;
             updateServerStatus(false);
-            startServerBtn.setText("Start Server");
+            startServerBtn.setText("Connect Server");
 
             showAlert("Server Stopped",
                     "Server has been stopped ",
