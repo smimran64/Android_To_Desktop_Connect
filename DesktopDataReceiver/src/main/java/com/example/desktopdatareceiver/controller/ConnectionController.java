@@ -52,7 +52,7 @@ public class ConnectionController {
 
         counterLabel.setText("0");
         connectDbBtn.setText("Connect Database");
-        startServerBtn.setText("Connect Server");
+        startServerBtn.setText("Connect  Server");
 
         connectDbBtn.setOnAction(e -> toggleDatabase());
         startServerBtn.setOnAction(e -> toggleServer());
